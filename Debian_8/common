@@ -1,0 +1,8 @@
+https://www.linode.com/docs/tools-reference/tools/modify-file-permissions-with-chmod/
+- zmiana właściciela pliku/folderu
+	chown owner-user file 
+	chown owner-user:owner-group file
+	chown owner-user:owner-group directory
+	chown options owner-user:owner-group file
+- zmiana uprawnień
+	chmod -R 775 intellij/
