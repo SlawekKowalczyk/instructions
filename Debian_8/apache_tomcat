@@ -1,0 +1,52 @@
+notatki:
+W twoim konkretnym przypadku IntelliJ IDEA nie był w stanie odczytać plików z katalogu instalacyjnego serwera, ponieważ IDE użytkownika, który działał, nie miał żadnych uprawnień do katalogu instalacyjnego serwera. Do celów programistycznych wystarczy tylko pobrać i rozpakować dystrybucję serwerów do katalogu domowego bez zmiany jakichkolwiek uprawnień dla tego katalogu. W ten sposób IDE będzie mógł odczytać pliki i korzystać z tej instalacji.
+Rozwiązanie pomogło dla konfiguracji intellij-a
+
+Utworzenie oddzielnego użytkownika i ograniczenie uprawnień zgodnie z opisem podanym w przewodniku jest potrzebne tylko dla serwerów produkcyjnych otwartych dla publiczności. Jest to dobry środek bezpieczeństwa, aby ograniczyć możliwe szkody dla systemu w przypadku naruszenia bezpieczeństwa serwera lub znalezienia luki w zabezpieczeniach JVM, serwera aplikacji lub aplikacji uruchomionej na tym serwerze.
+
+https://www.digitalocean.com/community/tutorials/how-to-install-apache-tomcat-8-on-ubuntu-16-04
+	install jdk
+		sudo groupadd tomcat
+		sudo useradd -s /bin/false -g tomcat -d /opt/tomcat tomcat
+	install tomcat
+		sudo mkdir /opt/tomcat
+		sudo tar xzvf apache-tomcat-8*tar.gz -C /opt/tomcat --strip-components=1
+	cd /opt/tomcat
+		sudo chgrp -R tomcat /opt/tomcat
+		sudo chmod -R g+r conf
+		sudo chmod g+x conf
+		sudo chown -R tomcat webapps/ work/ temp/ logs/
+		sudo nano /etc/systemd/system/tomcat.service
+	past:
+		<--
+		[Unit]
+		Description=Apache Tomcat Web Application Container
+		After=network.target
+
+		[Service]
+		Type=forking
+
+		Environment=JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64/jre
+		Environment=CATALINA_PID=/opt/tomcat/temp/tomcat.pid
+		Environment=CATALINA_HOME=/opt/tomcat
+		Environment=CATALINA_BASE=/opt/tomcat
+		Environment='CATALINA_OPTS=-Xms512M -Xmx1024M -server -XX:+UseParallelGC'
+		Environment='JAVA_OPTS=-Djava.awt.headless=true -Djava.security.egd=file:/dev/./urandom'
+
+		ExecStart=/opt/tomcat/bin/startup.sh
+		ExecStop=/opt/tomcat/bin/shutdown.sh
+
+		User=tomcat
+		Group=tomcat
+		UMask=0007
+		RestartSec=10
+		Restart=always
+
+		[Install]
+		WantedBy=multi-user.target
+		-->
+	sprawdzenie:
+		sudo systemctl daemon-reload
+		sudo systemctl start tomcat
+		sudo systemctl status tomcat
+		sudo systemctl stop tomcat
