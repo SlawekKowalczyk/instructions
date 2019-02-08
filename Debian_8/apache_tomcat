@@ -1,6 +1,5 @@
 notatki:
 W twoim konkretnym przypadku IntelliJ IDEA nie był w stanie odczytać plików z katalogu instalacyjnego serwera, ponieważ IDE użytkownika, który działał, nie miał żadnych uprawnień do katalogu instalacyjnego serwera. Do celów programistycznych wystarczy tylko pobrać i rozpakować dystrybucję serwerów do katalogu domowego bez zmiany jakichkolwiek uprawnień dla tego katalogu. W ten sposób IDE będzie mógł odczytać pliki i korzystać z tej instalacji.
-Rozwiązanie pomogło dla konfiguracji intellij-a
 
 Utworzenie oddzielnego użytkownika i ograniczenie uprawnień zgodnie z opisem podanym w przewodniku jest potrzebne tylko dla serwerów produkcyjnych otwartych dla publiczności. Jest to dobry środek bezpieczeństwa, aby ograniczyć możliwe szkody dla systemu w przypadku naruszenia bezpieczeństwa serwera lub znalezienia luki w zabezpieczeniach JVM, serwera aplikacji lub aplikacji uruchomionej na tym serwerze.
 
