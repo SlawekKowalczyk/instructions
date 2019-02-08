@@ -1,0 +1,13 @@
+- utworzyć folder docelowy
+	sudo mkdir /opt/mvn
+- zmienić właściciela
+	chown :skowalczyk mvn/
+- nadać uprawnienia
+	chmod -R 775 /opt/mvn
+	drwxrwxr-x 3 root skowalczyk 4096 sty 23 09:39 mvn
+- rozpakować jako user
+	tar -zxf apache-maven-3.6.0-bin.tar.gz -C /opt/mvn
+- update
+	update-alternatives --install /usr/bin/mvn mvn /opt/maven/apache-maven-3.6.0/bin/mvn 100
+- sprawdzenie
+	mvn -version
