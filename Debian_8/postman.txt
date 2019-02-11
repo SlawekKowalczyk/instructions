@@ -1,5 +1,13 @@
-sudo tar -xzf postman.tar.gz -C /opt  
-rm postman.tar.gz
-sudo ln -s /opt/Postman/Postman /usr/bin/postman
-update-alternatives --install /usr/bin/postman postman /opt/postman/Postman/app/Postman 100
-postman
+- utworzyć folder docelowy
+	sudo mkdir /opt/postman
+- zmienić właściciela
+	sudo chown :skowalczyk postman/
+- nadać uprawnienia
+	sudo chmod -R 775 /opt/postman
+	sudo drwxrwxr-x 3 root skowalczyk 4096 sty 23 09:39 postman
+- rozpakować jako user
+	tar -zxf /home/skowalczyk/install/Postman-linux-x64-6.7.2.tar.gz  -C /opt/postman/
+- update
+	sudo update-alternatives --install /usr/bin/postman postman /opt/postman/Postman/app/Postman 100
+- uruchomienie
+  postman
