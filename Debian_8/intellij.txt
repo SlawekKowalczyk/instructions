@@ -1,11 +1,11 @@
 - utworzyć folder docelowy
 	sudo mkdir /opt/intellij
 - zmienić właściciela
-	chown :skowalczyk intellij/
+	sudo chown :skowalczyk intellij/
 - nadać uprawnienia
-	chmod -R 775 /opt/intellij
+	sudo chmod -R 775 /opt/intellij
 	drwxrwxr-x 3 root skowalczyk 4096 sty 23 09:39 intellij
 - rozpakować jako user
 	tar -zxf jdk-8u5-linux-x64.tar.gz -C /opt/intellij
-- install 
+- install jako user
 	sh /opt/idea/bin/idea.sh
