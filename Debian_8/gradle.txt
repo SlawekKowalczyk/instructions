@@ -1,13 +1,13 @@
 - utworzyć folder docelowy
 	sudo mkdir /opt/gradle
 - zmienić właściciela
-	chown :skowalczyk gradle/
+	sudo chown :skowalczyk gradle/
 - nadać uprawnienia
-	chmod -R 775 /opt/gradle
+	sudo chmod -R 775 /opt/gradle
 	drwxrwxr-x 3 root skowalczyk 4096 sty 23 09:39 gradle
 - rozpakować jako user
-	unzip -d /opt/gradle gradle-5.1.1-bin.zip
+	unzip -d /opt/gradle/ /home/skowalczyk/install/gradle-5.1.1-all.zip
 - update
-	update-alternatives --install /usr/bin/gradle gradle /opt/gradle/gradle-5.1.1/bin/gradle 100
+	sudo update-alternatives --install /usr/bin/gradle gradle /opt/gradle/gradle-5.1.1/bin/gradle 100
 - sprawdzenie
 	gradle -v
