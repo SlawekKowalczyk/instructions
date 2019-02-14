@@ -7,4 +7,4 @@ https://www.linode.com/docs/tools-reference/tools/modify-file-permissions-with-c
 - zmiana uprawnień
 	chmod -R 775 intellij/
 - generowanie klucza ssh (private and public)
-	[user] # ssh-keygen -t rsa
+	[user] # ssh-keygen -t rsa -> (/home/[userName]/.ssh)
