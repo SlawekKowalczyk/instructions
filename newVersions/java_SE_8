@@ -1,0 +1,71 @@
+- metody domyślne w interfejsach
+    interface Formula {
+      double calculate(int a);
+      default double sqrt(int a) {
+        return Math.sqrt(a);
+        }
+    }
+- wyrażenie lambda
+	  Collections.sort(names, (String a, String b) -> {
+      return b.compareTo(a);
+	  });
+- interfejsy funkcyjne
+- dodanie klasy Optional (Optional to nie interfejs funkcyjny, lecz sprytna klasa pomagająca uniknąć wyjątku NullPointerException.)
+- strumienie (streams - Strumień stanowi sekwencję elementów, na których może zostać wykonana co najmniej jedna operacja. Operacje strumieniowe mogą być pośrednie lub kończące. Operacje kończące zwracają wynik określnego typu, natomiast pośrednie zwracają sam strumień, co pozwala połączyć w łańcuch kilka wywołań metody z rzędu. Strumienie są tworzone na podstawie źródła, np. kolekcji takiej jak lista czy zbiór (słowniki nie są obsługiwane). Operacje strumieniowe mogą być wykonywane sekwencyjnie bądź równolegle.)
+- filter (Operacja filter przyjmuje predykat, na podstawie którego filtruje wszystkie elementy strumienia. To operacja pośrednia, dzięki czemu na wyniku możemy wykonać inną operację strumieniową (forEach). ForEach przyjmuje konsumenta, którego operacje mają zostać wykonane dla każdego elementu w przefiltrowanym strumieniu. To operacja kończąca. Typ zwrotny to void, dlatego nie można wywołać kolejnej operacji strumieniowej.)
+	  stringCollection
+      .stream()
+      .filter((s) -> s.startsWith("a"))
+      .forEach(System.out::println);
+- sortowanie (Sorted to operacja pośrednia zwracająca posortowany widok strumienia. Elementy są sortowane w porządku naturalnym, chyba że przekażemy własny komparator.)
+	  collection
+		  .stream()
+		  .sorted()
+		  .filter((s) -> s.startsWith("a"))
+		  .forEach(System.out::println);
+- map (Pośrednia operacja map konwertuje każdy element na inny obiekt za pośrednictwem podanej funkcji. W poniższym przykładzie zamieniamy łańcuch na łańcuch zapisany wielkimi literami, lecz za pomocą tej operacji moglibyśmy też zmienić typ dowolnego obiektu na inny. Typ generyczny wynikowego strumienia zależy od typu generycznego przekazanej funkcji.)
+	  collection
+      .stream()
+      .map(String::toUpperCase)
+      .sorted((a, b) -> b.compareTo(a))
+      .forEach(System.out::println);
+ 	// "DDD2", "DDD1", "CCC", "BBB3", "BBB2", "AAA2", "AAA1"
+- Match (Korzystając z różnych operacji dopasowania można sprawdzić, czy dany predykat odpowiada strumieniowi. Wszystkie tego typu operacje są kończące i zwracają wartość logiczną.)
+	  boolean anyStartsWithA = collection.stream()
+      .anyMatch((s) -> s.startsWith("a"));    // true
+  	boolean allStartsWithA = collection.stream()
+			.allMatch((s) -> s.startsWith("a"));	// false
+	  boolean noneStartsWithZ = collection.stream()
+			.noneMatch((s) -> s.startsWith("z"));	//true
+- Count (Count to operacja kończąca, która zwraca liczbę elementów strumienia jako wartość typu long.)
+	  long startsWithB =collection.stream()
+        .filter((s) -> s.startsWith("b"))
+        .count();							// 3
+- reduce (Operacja kończąca, która dokonuje redukcji elementów strumienia przy użyciu podanej funkcji. Wynikiem jest kontener Optional zawierający zredukowaną wartość.)		
+	  Optional<String> reduced = collection.stream()
+        .sorted()
+        .reduce((s1, s2) -> s1 + "#" + s2);
+    reduced.ifPresent(System.out::println);		//"aaa1#aaa2#bbb1#bbb2#bbb3#ccc#ddd1#ddd2"	
+- sortowanie sekwencyjne
+				int max = 1000000;
+				List<String> values = new ArrayList<>(max);
+				for (int i = 0; i < max; i++) {
+					UUID uuid = UUID.randomUUID();
+					values.add(uuid.toString());
+				}
+        
+	    long t0 = System.nanoTime(); 
+	    values.stream().sorted().count();
+	    long t1 = System.nanoTime();
+	    long millis = TimeUnit.NANOSECONDS.toMillis(t1 - t0);	// sortowanie sekwencyjne zajęło 899 ms
+- sortowanie równoległe
+	    long t0 = System.nanoTime(); 
+	    values.parallelStream().sorted().count();
+	    long t1 = System.nanoTime();
+	    long millis = TimeUnit.NANOSECONDS.toMillis(t1 - t0);	// sortowanie równoległe zajęło 472 ms
+- API daty i czasu:
+	- Zegar - klasa java.time.Clock.*
+	- Strefy czasowe
+	- Data lokalna
+	- Czas lokalny
+	- LocalDateTime
