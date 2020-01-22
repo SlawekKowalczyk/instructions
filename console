@@ -1,0 +1,2 @@
+- uruchamianie aplikacji z paramtetrem 
+    run --args="conf/app.config" - (edit configuration)
