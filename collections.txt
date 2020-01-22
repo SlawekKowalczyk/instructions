@@ -1,0 +1,28 @@
+
+
+Mapy, choć nie są formalnie kolekcjami z punktu widzenia języka Java (nie są typu Collection), także służą do przechowywania elementów. Wyróżnia je to, że przechowują nie tyle same elementy, co mapowanie klucz-wartość, tzn. jeden obiekt (klucz) wskazuje na inny obiekt (wartość).
+
+W przypadku map mamy przede wszystkim operację dodawania ( put(K key, V value) ) oraz pobierania elementu ( V get(K key) ).
+
+Obiekty w mapie mogą się powtarzać, jeśli są wartościami. Klucze muszą być unikalne. Wartości i klucze moga być dowolnego typu.
+Najpopularniejsze implementacje
+
+    HashMap — mapa, której właściwości są podobne do HashSet’a, kolejność oraz przechowywanie wynikają z implementacji funkcji hashCode()
+    TreeMap — elementy są przechowywane w formie posortowanej (wg klucza)
+	
+	xxx
+Kolejki to specyficzna konstrukcja pozwalająca na implementację kolejek typu FIFO (first-in-first-out) i FILO (first-in-last-out, czasem nazywana stosem).
+
+Kolejki udostępniają oczywiście operację dodawania ( add(E element) ) oraz pobierania elementu z głowy bez usuwania go z kolejki ( E peek() ) oraz od razu usuwając go z kolejki ( E remove() ).
+
+Obiekty w kolejce mogą się powtarzać.
+Najpopularniejsze implementacje
+
+    ArrayDeque — kolejka oparta o tablice, pozwala na dostęp zarówno od strony głowy ( getFirst() ) jak i ogona ( getLast() ). Elementy przechowywane są w kolejności dodawania
+    PriorityQueue — pozwala na przechowywanie i dostęp do elementów wg określonego kryterium (komparatora), sortując elementy wg niego w momencie dodania do kolejki. Przydatna w sytuacjach gdy mamy np. kolejkę obiektów do przetworzenia i chcemy zawsze obsłużyć ważniejsze szybciej niż te mniej ważne
+	
+	xxx
+	
+Różnica między HashSet, TreeSet i LinkedHashSet
+
+HashSet jest podstawową implementacją, która zapewnia jedynie unikalność elementów, TreeSet gwarantuje dodatkowe sortowanie, a LinkedHashSet pamięta  dodatkowo kolejnoś wstawiania.
