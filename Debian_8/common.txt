@@ -8,3 +8,6 @@ https://www.linode.com/docs/tools-reference/tools/modify-file-permissions-with-c
 	chmod -R 775 intellij/
 - generowanie klucza ssh (private and public)
 	[user] # ssh-keygen -t rsa -> (/home/[userName]/.ssh)
+- przeszukiwanie
+	find / -type d -name "apt" 
+	sudo find / -type d -name "apt"
