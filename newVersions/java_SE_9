@@ -1,0 +1,4 @@
+- moduły
+- fabryki dla kolekcji
+  List<Foo> myFooList = List.of(new Foo(32), new Foo(21), new Foo(54));
+- JShell
