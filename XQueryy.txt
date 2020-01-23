@@ -1,0 +1,310 @@
+doc("/shakespeare/plays/a_and_c.xml")/PLAY/PERSONAE/PGROUP[PERSONA = "EROS"]
+doc()/PLAY/PERSONAE/PGROUP
+
+doc("/shakespeare/plays/a_and_c.xml")/PLAY/PERSONAE/PGROUP[PERSONA = "EROS"]/PERSON
+
+doc()/PLAY/PERSONAE/PGROUP[PERSONA = "CAIUS"]
+	jest równoważne
+for $x in doc()/PLAY/PERSONAE/PGROUP
+where $x/PERSONA = "CAIUS"
+return $x/PERSONA
+
+for $x in doc("/shakespeare/plays/a_and_c.xml")/PLAY/PERSONAE/PGROUP
+order by $x
+return $x/PERSONA
+
+for $x in doc()/PLAY/PERSONAE/PGROUP/PERSONA
+order by $x
+return $x
+
+<ul>
+{
+for $x in doc()/PLAY/PERSONAE/PGROUP/PERSONA
+order by $x
+return <li>{$x}</li>
+}
+</ul>
+
+<ul>
+{
+for $x in doc()/PLAY/PERSONAE/PGROUP/PERSONA
+order by $x
+return <li>{data($x)}</li>
+}
+</ul>
+
+<ul>
+{
+for $x in doc("/shakespeare/plays/a_and_c.xml")/PLAY/PERSONAE
+return if ($x/TITLE = "Dramatis Personae")
+then $x/PGROUP/PERSONA
+else "--"
+}
+</ul>
+
+<ul>
+{
+for $x in doc("/shakespeare/plays/a_and_c.xml")/PLAY/ACT/SCENE/SPEECH
+return if ($x/SPEAKER = "PHILO")
+then $x/LINE
+else ""
+}
+</ul>
+
+<ul>
+{
+for $x in doc("/shakespeare/plays/a_and_c.xml")/PLAY/ACT/SCENE/SPEECH
+return if ($x/SPEAKER = "CLEOPATRA")
+then <li>{data($x/LINE)}</li>
+else ""
+}
+</ul>
+
+<ul>
+{
+for $x in doc("/shakespeare/plays/a_and_c.xml")/PLAY/ACT/SCENE/SPEECH
+return if ($x/SPEAKER = "PHILO")
+then <li>{lower-case($x/SPEAKER)}</li>
+else ""
+}
+</ul>
+
+let $items := (1,2,3,4,5)
+let $count := count($items)
+return
+   <result>
+      <count>{$count}</count>     
+   </result>
+   
+<-- ***** -->
+xquery version "1.0-ml";
+for $speech in (doc()//SPEECH)[1 to 100]
+let $speaker := $speech/SPEAKER
+let $lines := $speech/LINE
+return (
+    <h2>{$speaker/text()}</h2>,
+    <p>{for $line in $lines return $line/text()}</p>
+  )
+
+  <-- ***** -->
+xquery version "1.0-ml";
+declare namespace html = "http://www.w3.org/1999xhtml";
+xdmp:estimate(cts:search(fn:doc(), cts:word-query("CLEOPATRA")))
+
+<-- ***** -->
+xquery version "1.0-ml";
+declare namespace html = "http://www.w3.org/1999xhtml";
+xdmp:estimate(cts:search(fn:doc(), cts:word-query("CLEOPATRA")))
+<-- ***** -->
+xquery version "1.0-ml";
+declare namespace html = "http://www.w3.org/1999xhtml";
+xdmp:estimate(fn:doc()//SPEECH/(SPEAKER="CLEOPATRA")/SPEAKER)
+<-- ***** -->
+xquery version "1.0-ml";
+declare namespace html = "http://www.w3.org/1999xhtml";
+doc("/shakespeare/plays/a_and_c.xml")/PLAY/ACT/SCENE/SPEECH[SPEAKER = "CLEOPATRA"]
+<-- ***** -->
+xquery version "1.0-ml";
+declare namespace html = "http://www.w3.org/1999xhtml";
+doc("/shakespeare/plays/a_and_c.xml")/PLAY/ACT/SCENE[1]/SPEECH[SPEAKER = "CLEOPATRA"][1],
+"next query",
+doc("/shakespeare/plays/a_and_c.xml")/PLAY/ACT/TITLE,
+"next query",
+doc("/shakespeare/plays/a_and_c.xml")/PLAY/ACT[1]/TITLE
+<-- ***** -->
+xquery version "1.0-ml";
+declare namespace html = "http://www.w3.org/1999xhtml";
+doc("/shakespeare/plays/a_and_c.xml")/PLAY/ACT/SCENE[1]/SPEECH[SPEAKER = "CLEOPATRA"][1]/SPEAKER,
+"next query",
+doc("/shakespeare/plays/a_and_c.xml")/PLAY/ACT[1 to 3]/TITLE,
+"next query",
+doc("/shakespeare/plays/a_and_c.xml")/PLAY/ACT[1]/TITLE,
+"result as string",
+doc("/shakespeare/plays/a_and_c.xml")/PLAY/ACT[1]/TITLE/string(),
+"next query",
+doc("/shakespeare/plays/a_and_c.xml")//SPEECH[SPEAKER = "OCTAVIUS CAESAR"][1],
+"next query",
+doc("/shakespeare/plays/a_and_c.xml")//SPEECH[1]
+<-- ***** -->
+xquery version "1.0-ml";
+declare namespace html = "http://www.w3.org/1999xhtml";
+<ul>{
+  for $m in doc("/shakespeare/plays/a_and_c.xml")[1 to 5]
+  return <li>{ $m/PLAY/ACT/TITLE/string() }</li>
+}</ul>
+<-- ***** -->
+xquery version "1.0-ml";
+declare namespace html = "http://www.w3.org/1999xhtml";
+<ul>{
+  for $m in doc("/shakespeare/plays/a_and_c.xml")[1 to 5]
+  return <li>{ $m/PLAY/ACT/SCENE/SPEECH[SPEAKER = "PHILO"]/SPEAKER/string() } and
+             { $m/PLAY/ACT/SCENE/SPEECH[SPEAKER = "Attendant"]/SPEAKER/string() }
+         </li>
+}</ul>
+<-- ***** -->
+xquery version "1.0-ml";
+declare namespace html = "http://www.w3.org/1999xhtml";
+<result>{
+  for $m in doc("/shakespeare/plays/a_and_c.xml")[1 to 5]
+  return 
+    <item>
+      <phil>{ $m/PLAY/ACT/SCENE/SPEECH[SPEAKER = "PHILO"]/SPEAKER/string() } </phil> 
+      <Attendant>{ $m/PLAY/ACT/SCENE/SPEECH[SPEAKER = "Attendant"]/SPEAKER/string() }</Attendant>
+    </item>
+}</result>
+<-- ***** -->
+xquery version "1.0-ml";
+declare namespace html = "http://www.w3.org/1999xhtml";
+xdmp:estimate(doc()/PLAY/ACT/SCENE/SPEECH/SPEAKER),
+xdmp:elapsed-time()
+<-- ***** -->
+xquery version "1.0-ml";
+declare namespace html = "http://www.w3.org/1999xhtml";
+let $lists := ("PHILO", "DEMETRIUS", "AGRIPPA")
+return
+  <ul>{
+    for $x in (doc("/shakespeare/plays/a_and_c.xml"))
+    return <li>{ $x/PLAY/ACT/SCENE[1]/SPEECH[SPEAKER = $lists]/string() }</li>
+  }</ul>
+<-- ***** -->
+xquery version "1.0-ml";
+declare namespace html = "http://www.w3.org/1999xhtml";
+let $lists := ("PHILO", "DEMETRIUS", "AGRIPPA")
+return
+  <ul>{
+    for $x in (doc("/shakespeare/plays/a_and_c.xml"))
+    return <li>{ $x/PLAY/ACT/SCENE[1]/SPEECH[SPEAKER = $lists]/string() }</li>,
+    xdmp:elapsed-time()
+  }</ul>
+<-- ***** -->
+xquery version "1.0-ml";
+declare namespace html = "http://www.w3.org/1999xhtml";
+cts:search(//TITLE, cts:word-query("Tragedy"))
+<-- ***** -->
+xquery version "1.0-ml";
+declare namespace html = "http://www.w3.org/1999xhtml";
+"suma: ",
+count(cts:search(//TITLE, cts:word-query("Tragedy"))),
+xdmp:estimate(cts:search(//TITLE, cts:word-query("Tragedy"))),
+cts:search(//TITLE, cts:word-query("Tower"))[1 to 3]
+<-- ***** -->
+// not work correctly
+xquery version "1.0-ml";
+declare namespace html = "http://www.w3.org/1999xhtml";
+declare namespace file = "http://expath.org/ns/file";
+declare namespace output = "http://www.w3.org/2010/xslt-xquery-serialization";
+for $i in doc()/PLAY/TITLE
+  return file:append("C:\Users\Slawomir\Desktop\testSave.xml", $i);
+<-- ***** -->
+xquery version "1.0-ml";
+declare namespace html = "http://www.w3.org/1999xhtml";
+declare namespace file = "http://expath.org/ns/file";
+declare namespace output = "http://www.w3.org/2010/xslt-xquery-serialization";
+for $i in fn:distinct-values(
+          doc("/shakespeare/plays/a_and_c.xml")/PLAY/ACT[1 to 2]/SCENE/SPEECH/SPEAKER)
+order by $i
+return $i
+<-- ***** -->
+xquery version "1.0-ml";
+declare namespace html = "http://www.w3.org/1999xhtml";
+<ul>{
+for $i in fn:distinct-values(
+          doc("/shakespeare/plays/a_and_c.xml")/PLAY/ACT/SCENE/SPEECH/SPEAKER)
+order by $i
+return if($i="GALLUS")
+      then <li>{$i}</li>
+      else ""
+}</ul>
+<-- ***** -->
+xquery version "1.0-ml";
+declare namespace html = "http://www.w3.org/1999xhtml";
+
+for $result at $i in fn:distinct-values (doc()/PLAY/ACT[1]/SCENE/SPEECH/SPEAKER)
+order by $result
+return <speaker>{$i}. {fn:upper-case($result)}</speaker>
+<-- ***** -->
+xquery version "1.0-ml";
+declare namespace html = "http://www.w3.org/1999xhtml";
+
+for $result at $i in fn:distinct-values (doc()/PLAY/ACT[1]/SCENE/SPEECH/SPEAKER)
+order by $result
+return <speaker>{$i}. {fn:substring(($result),1,4)}</speaker>
+<-- ***** -->
+xquery version "1.0-ml";
+declare namespace html = "http://www.w3.org/1999xhtml";
+
+for $i in (1 to 3), $y in (1 to 4)
+return <a>{$i} - {$y}</a>
+<-- ***** -->
+xquery version "1.0-ml";
+for $speech in (doc()//SPEECH)[1 to 10]
+  let $speaker := $speech/SPEAKER
+  let $lines := $speech/LINE
+  
+  return (
+        <h2>{$speaker/text()}</h2>,
+        <p>{
+          for $line in $lines
+            return $line/text()
+            }</p>
+        )
+<-- ***** -->
+xquery version "1.0-ml";
+for $speech in (doc()//SPEECH)[1 to 100]
+  let $speaker := $speech/SPEAKER
+  let $lines := $speech/LINE
+  
+  return (
+        <h2>{$speaker/text()}</h2>,
+        <p>{
+          for $line in $lines
+            where fn:string-length($line)<40
+            return fn:string-length($line)
+            }</p>
+        )
+<-- ***** -->
+xquery version "1.0-ml";
+for $i in (doc("/shakespeare/plays/a_and_c.xml"))
+  return count($i//SPEAKER)
+<-- ***** -->
+xquery version "1.0-ml";
+declare namespace html = "http://www.w3.org/1999xhtml";
+"zielone " || " i " || " brazowy";
+let $ref := fn:concat#3
+return $ref("a","A","s");
+fn:map(function($n) {$n + $n}, (10,20,30,1));
+
+declare function local:doSomething(
+  $a as xs:int, $b as xs:int
+) as xs:int
+{$a + $b};
+
+declare function local:doSomething(
+  $a as xs:int, $b as xs:int, $c as xs:int
+) as xs:int
+{$a * $b * $c};
+
+"funkcja z 2 parametrami #2",
+let $ref := local:doSomething#2
+return $ref(1,2),
+
+"funkcja z 2 parametrami #3",
+let $ref := local:doSomething#3
+return $ref(1,2,3)
+<-- ***** -->
+xquery version "1.0-ml";
+<random>{xdmp:random(100)}</random>
+<-- ***** -->
+xquery version "1.0-ml";
+for $i in (0 to 3), $j in xdmp:random(10)
+order by $j ascending
+return $j
+<-- ***** -->
+xquery version "1.0-ml";
+if (xdmp:random(10) = 5)
+then "my number"
+else ""
+<-- ***** -->
+<-- ***** -->
+<-- ***** -->
+<-- ***** -->

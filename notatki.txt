@@ -1,0 +1,19 @@
+pytania od kuby Miazek
+
+xQuery
+xPath
+FLOWER
+mlcp
+TDE => sql
+intellij
+docker
+
+FLWOR (for-let-where-order-by-return) to podstawowa konstrukcja XQuery. Odpowiada konstrukcji SELECT-FROM-WHERE-ORDER-BY języka SQL. FLWOR to pętla for, która:
+
+    pozwala przejść po elementach zadanej kolekcji (fraza for),
+    zdefiniować zmienne pomocnicze (fraza let),
+    odfiltrować niepotrzebne elementy (fraza where),
+    uporządkować to, co pozostanie (fraza order by),
+    wypisać wynik w odpowiedniej postaci (fraza return).
+	
+	Bean jest obiektem, który jest tworzony, montowany i zarządzany przez kontener IoC

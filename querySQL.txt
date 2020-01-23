@@ -1,0 +1,91 @@
+SELECT p.id, p.remaining_id, r.baptism_id FROM persons AS p INNER JOIN remainings AS r ON p.remaining_id = r.id WHERE p.id = 113979;
+
+SELECT p.id, p.remaining_id, r.baptism_id, b.id, b.file_number, b.place, b.date
+FROM 
+persons AS p INNER JOIN 
+remainings AS r ON p.remaining_id = r.id INNER JOIN
+baptismes AS b ON r.baptism_id = b.id
+WHERE p.id = 113979;
+
+**********
+
+SELECT p.id, r.death_id
+FROM
+persons AS p INNER JOIN
+remainings AS r ON p.remaining_id = r.id INNER JOIN
+deaths AS d ON r.death_id = d.id
+WHERE r.death_id IS NOT null ORDER BY id;
+
+***********
+
+SELECT f.id, a.id, a.priest_first_name, a.priest_surname
+FROM 
+fiancee_pairs AS f INNER JOIN
+assistance_delagations AS a ON f.assistancedelegation_id = a.id
+WHERE f.id = 80755;
+
+**
+
+SELECT f.id, d.id, d.sacrament, d.reason, d.under_age
+FROM 
+fiancee_pairs AS f INNER JOIN
+dispensations AS d ON f.dispensation_id = d.id
+WHERE f.id IS NOT null ORDER BY f.id;
+
+********
+
+SELECT * FROM (
+SELECT date(i.date) FROM Intentions as i
+    ) as d WHERE date(d) > date('2018-01-01')
+    and date(d) < date('2018-01-04')
+    ;
+ 
+ ****
+ 
+ SELECT id from (select i.id, i.date, i.offering, i.accept_id from Intentions as i) as d
+where date(d) >= date('2018-01-01') 
+	
+    and date(d) <= date('2018-01-04')
+    group by d.id
+    ;
+	
+*****
+
+select count(*) from (select i.id, i.date, i.offering, i.accept_id from Intentions as i) as d
+where date(d) >= date('2018-01-01') 
+    and date(d) <= date('2018-01-04')
+    ;
+*****
+SELECT sum(offering) FROM (SELECT date, offering, accept_id, type_id FROM Intentions as i) AS d 
+WHERE date(d) > date('2016-02-15') AND date(d) < date('2018-03-29') 
+AND offering IS NOT null AND accept_id = '145963' AND type_id = 6; 
+*****
+SELECT id, first_name, surname, family_id, type FROM persons
+	WHERE family_id IS NOT null 
+    	AND type NOT in ('children')
+        ORDER BY family_id;
+****
+
+SELECT * FROM persons AS p 
+INNER JOIN per_fam AS pf ON p.id = pf.person_id
+inner join families as f On f.id = pf.family_id;
+
+****
+
+SELECT * FROM persons AS p INNER JOIN per_fam AS pf ON p.id = pf.person_id INNER JOIN families AS f ON f.id = pf.family_id WHERE pf.family_id = 343;
+
+**
+
+SELECT * FROM persons AS p INNER JOIN persons_families AS pf ON p.id = pf.person_id inner join families as f On f.id = pf.family_id;
+****
+
+SELECT * from persons p where p.id in (SELECT person_id FROM persons_families AS pf);
+
+***
+
+SELECT * from persons p 
+	INNER JOIN persons_families AS pf ON p.id = pf.person_id 
+    where p.id in (SELECT person_id FROM persons_families) ORDER BY p.id;
+	
+**
+SELECT * FROM persons as p inner join persons_families as pf on p.id = pf.person_id where pf.family_id = 112018;

@@ -1,0 +1,9 @@
+prezentacja
+	-search
+	-indeksowanie
+	-rozróżnienie 	wielkości liter i 	szybkość
+	- configuracja 	serwera
+	- MDI unit 01	(zalety) + pliki pdf
+	
+https://www.youtube.com/watch?v=0Pz77dJOPCQ
+	

@@ -1,0 +1,20 @@
+-- create database --
+curl --anyauth --user admin:mypassword -X POST -d@./config/content-db.xml \
+  -i -H "Content-type: application/xml" \
+  http://localhost:8002/manage/v2/databases
+
+-- create forest --
+curl --anyauth --user admin:mypassword -X POST -d@./config/content-forest.xml \
+  -i -H "Content-type: application/xml" \
+  http://localhost:8002/manage/v2/forests
+  
+-- create server and add database --
+C:/software/mlcp-9.0.3/bin/mlcp.bat import -host localhost -port 8000 \
+  -username admin -password mypassword -database shakespeare-content \
+  -input_file_path C:/software/dateFile/shaks200.zip -input_compressed true
+  
+-- example --
+https://github.com/marklogic-community/bill
+
+-- library --
+C:/software/mlcp-9.0.3/bin/mlcp.bat import -host localhost -port 8000   -username admin -password mypassword -database Library   -input_file_path C:/Program\ Files/MarkLogic/library-resources/testXML.zip -input_compressed true

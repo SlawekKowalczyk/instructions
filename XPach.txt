@@ -1,0 +1,36 @@
+/b:books/child::*
+/b:books/b:book/child::b:title
+/b:books/b:book/b:title/child::text()
+/b:books/b:book/child::node()
+/b:books/b:book/attribute::bookId
+/b:books/descendant::b:book
+/b:books/child::b:book[position()=3]
+/b:books/child::b:book[position()=last()]
+/b:books/child::b:book[position()=last()-1]
+/b:books/child::b:book[position()>=5]
+/b:books/b:book[b:sideNumber>300]/b:title
+/b:books/b:book[b:sideNumber>500]/b:title | //b:book/b:sideNumber/child::text() - wyświetla liczbe stron dla wszysttkich książek
+/b:books/b:book[b:sideNumber>500]/b:title
+
+//b:book
+//@bookId
+//@* - wszystkie atrybuty
+//b:book[2]
+//b:book[last()]
+*/b:book
+
+
+substring("XML. Szybki start. Wydanie II",5,15) => String=' Szybki start. '
+substring("XML. Szybki start. Wydanie II", 0, 4.2) => String='XML'
+substring("XML. Szybki start. Wydanie II", 0, 10) => String='XML. Szyb'
+string-length("XML. Szybki start. Wydanie II") => Int64='29'
+normalize-space("XML.                      Szybki start.             Wydanie II") => String='XML. Szybki start. Wydanie II'
+translate("emka", "maka", "JXSLE") => String='eJSX'
+concat("Ala ma", " ", "kota", " i ", "psa") => String='Ala ma kota i psa'
+starts-with("string1", "string1") => Boolean='true'
+starts-with("string1", "string2") => Boolean='false'
+contains("Ala ma kota i psa","Ala ma kota") => Boolean='true'
+contains("Ala ma kota i psa","Ala ma psa i kota") => Boolean='false'
+substring-before("1984-1256-1356-45", "-") => String='1984'
+substring-after("1984-1256-1356-45", "-") => String='1256-1356-45'
+

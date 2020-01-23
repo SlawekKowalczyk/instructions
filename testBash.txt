@@ -1,0 +1,111 @@
+#bin/bash
+echo "Hello, World!"
+STRING="this is a string"
+# String Length
+echo ${#STRING}
+# Index
+SUBSTRING="gs"
+expr index "$STRING" "$SUBSTRING"
+# Substring Extraction
+POS=1
+LEN=3
+echo ${STRING:$POSL:$LEN}
+echo ${STRING:1}
+echo ${STRING:12}
+# Substring Replacement
+STRING="to be or not to be"
+echo $STRING
+echo ${STRING[@]/be/eat}
+echo ${STRING[@]//be/eat}
+echo ${STRING[@]// not/}
+echo ${STRING[@]/to be/eat now}
+echo ${STRING[@]/%be/eat}
+echo ${STRING[@]/%be/be on $(date +%Y-%m-%d)}
+# Decision Making
+NAME=JohnX
+if [ "$NAME" = "John" ]; then
+echo "True - my name is indeed John"
+else
+echo "False"
+echo "You must mistake me for $NAME"
+fi
+if [ "$NAME" = "John" ]; then
+echo My name is "$NAME"
+elif [ "$NAME" = "JohnX" ]; then
+echo My name is "$NAME"
+else
+echo "My name is $NAME"
+fi
+
+mycase=3
+case $mycase in
+1) echo "You select $mycase";;
+2) echo "You select $mycase";;
+3) echo "You select $mycase";;
+4) echo "You select $mycase";;
+esac
+NAMES=(Joe Jenny Sara Tony)
+for N in ${NAMES[@]} ; do
+echo "My nam is $N"
+done
+
+COUNT=5
+while [ $COUNT -gt 0 ]; do
+echo "Value ot count is: $COUNT"
+COUNT=$(($COUNT - 1))
+done
+echo
+COUNT=1
+until [ $COUNT -gt 5 ]; do
+echo "Value of count is: $COUNT"
+COUNT=$((COUNT + 1))
+done
+
+echo
+COUNT=0
+while [ $COUNT -ge 0 ]; do
+echo "Value of count is: $COUNT"
+COUNT=$((COUNT+1))
+if [ $COUNT -ge 5 ]; then
+break
+fi
+done
+
+echo
+COUNT=0
+while [ $COUNT -lt 10 ]; do
+COUNT=$((COUNT+1))
+if [ $(($COUNT % 2)) = 0 ] ; then
+	continue
+fi
+echo $COUNT 
+done
+
+echo
+function function_B {
+  echo "Function B."
+}
+function function_A {
+  echo "$1"
+}
+function adder {
+  echo "$(($1 + $2))"
+}
+
+function_A "Function A."
+function_B
+adder 12 56
+
+filename="testBash.txt"
+if [ -e "$filename" ] ; then
+	echo "$filename exist"
+else 
+	echo "$filename don't exist"
+fi
+
+directory_name="XMLs"
+if [ -d "$directory_name" ] ; then
+	echo "$directory_name exist"
+else
+	echo "$directory_name don't exist"
+fi
