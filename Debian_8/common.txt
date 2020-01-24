@@ -11,3 +11,4 @@ https://www.linode.com/docs/tools-reference/tools/modify-file-permissions-with-c
 - przeszukiwanie
 	find / -type d -name "apt" 
 	sudo find / -type d -name "apt"
+	ps -ef | grep name
