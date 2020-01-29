@@ -1,0 +1,31 @@
+https://www.baeldung.com/hibernate-save-persist-update-merge-saveorupdate
+
+Metody:
+PERSIST:
+	- przenosi obiekt ze stanu transient do stanu persistent
+	- obiekt zostanie zapisany do BD dopiero po zakończeniu transakcji, flush lub close sesion.
+	cascade = PERSIST
+
+SAVE:
+	- jest to oryginalna metoda hibernate, nie jest zgodna z JPA
+	- cel metody jest podobny jak persist ale generuje identyfikator (id)
+	- metoda nie weryfikuje czy w bazie danych znajduje się taki sam obiekt.
+
+MERGE:
+	- aktualizuje instancje jednostki trwałej z nowymi wartościami pola z instancji obiektu odłączonego
+	- wyszukuje instancje obiektu wg identyfikatora z przekazango obiektu
+	- metoda zwróci obiekt który został załadowany do persistent i zaaktualizowany
+	- jeżeli obiekt jest odłączony to aktualizuje go
+	- jeśli jest przejściowy to tworzy nowy
+
+UPDATE
+	- oryginalna metoda hibernata
+	- aktualizuje - przenosi obiekt ze stanu odłączonego w stan trwały
+	- jeśli dostanie obiekt ze stanu transient zgłosi wyjątek
+
+SAVEorUPDATE
+	- główna różnica - nie rzuca wyjątku po zastosowaniu na obiekcie ze stanu przejściowego
+	- pozwala uczynić obiekt trwałym niezaleznie czy przekażemy obiekt przejściowy czy odłączony
+	
+WNIOSKI:
+	- nalezy używać persistent oraz merge bo są zgodne z JPA
